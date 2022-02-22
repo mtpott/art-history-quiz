@@ -13,7 +13,7 @@
 var buttonEl = document.querySelector("#start");
 var questionHolderEl = document.querySelector(".questions");
 var questionEl = document.createElement("ul");
-var questionsEl = document.querySelector(".answer-btn");
+
 
 //to keep track of the user's score
 var userScore = 0;
@@ -27,71 +27,71 @@ var questionOne = function() {
     questionEl.textContent = "Who sculpted the David?";
     questionHolderEl.appendChild(questionEl);   
 
-    // var firstQuestionAEl = document.createElement("button");
-    // firstQuestionAEl.className = "answer-btn-one";
-    // firstQuestionAEl.textContent = "da Vinci";
-    // questionEl.appendChild(firstQuestionAEl);
+    var q1Option1 = document.createElement("button");
+    q1Option1.className = "answer-btn-one";
+    q1Option1.textContent = "da Vinci";
+    questionEl.appendChild(q1Option1);
 
-    // var firstQuestionBEl = document.createElement("button");
-    // firstQuestionBEl.id = "answer-btn-one-correct";
-    // firstQuestionBEl.textContent = "Michelangelo";
-    // questionEl.appendChild(firstQuestionBEl);
+    var q1Option2 = document.createElement("button");
+    q1Option2.id = "answer-btn-one-correct";
+    q1Option2.textContent = "Michelangelo";
+    questionEl.appendChild(q1Option2);
 
-    // var firstQuestionCEl = document.createElement("button");
-    // firstQuestionCEl.className = "answer-btn-one";
-    // firstQuestionCEl.textContent = "Donatello";
-    // questionEl.appendChild(firstQuestionCEl);
+    var q1Option3 = document.createElement("button");
+    q1Option3.className = "answer-btn-one";
+    q1Option3.textContent = "Donatello";
+    questionEl.appendChild(q1Option3);
 
-    // var firstQuestionDEl = document.createElement("button");
-    // firstQuestionDEl.className = "answer-btn-one";
-    // firstQuestionDEl.textContent = "Botticelli";
-    // questionEl.appendChild(firstQuestionDEl);
+    var q1Option4 = document.createElement("button");
+    q1Option4.className = "answer-btn-one";
+    q1Option4.textContent = "Botticelli";
+    questionEl.appendChild(q1Option4);
 
-    var answerOptionsOne = ["da Vinci", "Michelangelo", "Donatello", "Botticelli"];
-//use array to display answers; buttons need to be created in order to make this a clickable quiz
-
-    for (i = 0; i < answerOptionsOne.length; i++) {
-        var answerChoicesOneEl = document.createElement("button");
-        answerChoicesOneEl.className = "answer-btn-one";
-        answerChoicesOneEl.textContent = answerOptionsOne[i];
-        answerChoicesOneEl.setAttribute = ("value", answerOptionsOne[i]);
-    //append answerOptionsOne to the parent container, questionHolderEl
-        questionEl.appendChild(answerChoicesOneEl);
-    //make these clickable buttons
-       { if (document.getElementById("#answer-btn-one-correct") === true) {
-            window.prompt("Correct!");
-            //add to the user's score
-            userScore++; 
-            //move to the next function
-            questionTwo;
+    if (document.getElementById("answer-btn-one-correct").clicked == true) {
+        window.alert("Correct!");
+        //add to the user's score
+        userScore++; 
+        //move to the next function
         } else {
-            //deduct 5 seconds from the timer and move to the next question
-            questionTwo;
-            }
+        //deduct 5 seconds from the timer and move to the next question 
         }
-    }    
+
+    //if the user clicks the right answer, this targets that button
+    var correctAnswerOneEl = document.querySelector("#answer-btn-one-correct");
+    correctAnswerOneEl.addEventListener("click", questionTwo);
+
+    var incorrectAnswerOneEl = document.querySelector(".answer-btn-one");
+    incorrectAnswerOneEl.addEventListener("click", questionTwo);
+    
 };
 
 var questionTwo = function() {
-    var secondQuestionAEl = document.createElement("button");
-    secondQuestionAEl.className = "answer-btn-two";
-    secondQuestionAEl.textContent = "His finger";
-    questionEl.appendChild(secondQuestionAEl);
+    event.preventDefault();
 
-    var secondQuestionBEl = document.createElement("button");
-    secondQuestionBEl.id = "answer-btn-two";
-    secondQuestionBEl.textContent = "His toe";
-    questionEl.appendChild(secondQuestionBEl);
+//create the question element that appears when the button is clicked
+    questionEl.className = "second-question";
+    questionEl.textContent = "Vincent van Gogh famously injured himself by cutting off a body part. Which part did he cut off?";
+    questionHolderEl.appendChild(questionEl);
 
-    var secondQuestionCEl = document.createElement("button");
-    secondQuestionCEl.className = "answer-btn-tw0-correct";
-    secondQuestionCEl.textContent = "His ear";
-    questionEl.appendChild(secondQuestionCEl);
+    var q2Option1 = document.createElement("button");
+    q2Option1.className = "answer-btn-two";
+    q2Option1.textContent = "His finger";
+    questionEl.appendChild(q2Option1);
 
-    var secondQuestionDEl = document.createElement("button");
-    secondQuestionDEl.className = "answer-btn-two";
-    secondQuestionDEl.textContent = "His nose";
-    questionEl.appendChild(secondQuestionDEl);
+    var q2Option2 = document.createElement("button");
+    q2Option2.id = "answer-btn-two";
+    q2Option2.textContent = "His toe";
+    questionEl.appendChild(q2Option2);
+
+    var q2Option3 = document.createElement("button");
+    q2Option3.className = "answer-btn-two-correct";
+    q2Option3.textContent = "His ear";
+    questionEl.appendChild(q2Option3);
+
+    var q2Option4 = document.createElement("button");
+    q2Option4.className = "answer-btn-two";
+    q2Option4.textContent = "His nose";
+    questionEl.appendChild(q2Option4);
     // var questionTwoEl = document.querySelector("ul");
     // questionTwoEl.className = "second-question";
     // var answerOptionsTwo = ["His finger", "His toe", "His ear", "His Nose"];
@@ -104,22 +104,42 @@ var questionTwo = function() {
 
     //     questionEl.appendChild(answerChoicesTwoEl);
     //}
+    
+
 };
 
 
 var questionThree = function() {
-    var questionThreeEl = document.querySelector("ul");
-    questionThreeEl.className = "third-question";
+
+    event.preventDefault();
+//create the question element that appears when the button is clicked
+    questionEl.className = "third-question";
+    questionEl.textContent = "Which French artist was known for painting ballerinas?"
+
+    
+    var q3Option1 = document.createElement("button");
+    q3Option1.className = "answer-btn-three";
+    q3Option1.textContent = "Claude Monet";
+    questionEl.appendChild(q3Option1);
+
+    var q3Option2 = document.createElement("button");
+    q3Option2.id = "answer-btn-three";
+    q3Option2.textContent = "Paul Cézanne";
+    questionEl.appendChild(q3Option2);
+
+    var q3Option3 = document.createElement("button");
+    q3Option3.className = "answer-btn-three";
+    q3Option3.textContent = "Henri Matisse";
+    questionEl.appendChild(q3Option3);
+
+    var q3Option4 = document.createElement("button");
+    q3Option4.className = "answer-btn-three-correct";
+    q3Option4.textContent = "Edgar Degas";
+    questionEl.appendChild(q3Option4);
 
 }
 
 //quiz questions:
-
-// 2. vincent van gogh famously injured himself by cutting off a body part. which part did he cut off?
-// a - his finger
-// b- his toe 
-// c- his ear **
-// d - his nose 
 
 // 3. which french artist was known for painting ballerinas? 
 // a - claude monet 
@@ -128,4 +148,3 @@ var questionThree = function() {
 // d - edgar degas **
 
 buttonEl.addEventListener("click", questionOne);
-questionsEl.addEventListener("click", questionTwo);
