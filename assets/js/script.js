@@ -40,48 +40,71 @@ var questionOne = function(event) {
 
     //add the content for the div element that appears
     questionEl.textContent = "Who sculpted the David?";
-    questionHolderEl.appendChild(questionEl);   
+    questionHolderEl.appendChild(questionEl);
+    var questionOneChoice = questionEl.getAttribute("data-question-one");
 
     var q1Option1 = document.createElement("button");
     q1Option1.className = "answer-btn-one";
     q1Option1.textContent = "da Vinci";
+    q1Option1.setAttribute("data-question-one", questionOneChoice);
+
     questionEl.appendChild(q1Option1);
 
     var q1Option2 = document.createElement("button");
     q1Option2.id = "answer-btn-one-correct";
     q1Option2.textContent = "Michelangelo";
+    q1Option2.setAttribute("data-question-one", questionOneChoice);
+
     questionEl.appendChild(q1Option2);
 
     var q1Option3 = document.createElement("button");
     q1Option3.className = "answer-btn-one";
     q1Option3.textContent = "Donatello";
+    q1Option3.setAttribute("data-question-one", questionOneChoice);
+
     questionEl.appendChild(q1Option3);
 
     var q1Option4 = document.createElement("button");
     q1Option4.className = "answer-btn-one";
     q1Option4.textContent = "Botticelli";
+    q1Option4.setAttribute("data-question-one", questionOneChoice);
     questionEl.appendChild(q1Option4);
 
-
-    //make element appear/disappear when user is right/wrong
-    //if they click the right button, the element that says "correct!" appears. if wrong, "incorrect!"
-    if (document.getElementById("answer-btn-one-correct").clicked == true) {
-        window.alert("Correct!");
-        //add to the user's score
-        userScore++; 
-        console.log("the correct answer was chosen");
-        //move to the next function
-        } else {
-            console.log("the wrong answer was chosen");
-        //deduct 5 seconds from the timer and move to the next question 
-        }
-
     //if the user clicks the right answer, this targets that button
-    var correctAnswerOneEl = document.querySelector("#answer-btn-one-correct");
-    correctAnswerOneEl.addEventListener("click", questionTwo);
+    //var correctAnswerOneEl = document.querySelector("#answer-btn-one-correct");
+    //     if (correctAnswerOneEl.clicked == true) {
+    //         window.alert("correct!");
+    //         questionTwo();
+    //     }
+
+    //correctAnswerOneEl.addEventListener("click", answerChoice1);
+
+    function answerChoice1(questionOneChoice) {
+        //make element appear/disappear when user is right/wrong
+        //if they click the right button, the element that says "correct!" appears. if wrong, "incorrect!"
+        if (document.getElementById("answer-btn-one-correct").clicked) {
+            window.alert("Correct!");
+            //add to the user's score
+            //userScore++; 
+            console.log("the correct answer was chosen");
+            //move to the next function
+            } else {
+                console.log("the wrong answer was chosen");
+            //deduct 5 seconds from the timer and move to the next question 
+            }
+        };
+    
 
     var incorrectAnswerOneEl = document.querySelector(".answer-btn-one");
-    incorrectAnswerOneEl.addEventListener("click", questionTwo);
+        if(incorrectAnswerOneEl.clicked == true) {
+            window.alert("Incorrect!");
+            questionTwo();
+        }
+        else {
+            window.alert("Incorrect!");
+            questionTwo();
+        }
+    incorrectAnswerOneEl.addEventListener("click", answerChoice1);
 };
 
 var questionTwo = function(event) {
@@ -161,138 +184,72 @@ var questionThree = function(event) {
 
 var questionFour = function(event) {
     event.preventDefault();
-//create the question element that appears when the button is clicked
-    questionEl.className = "fourth-question";
-    questionEl.textContent = "Who designed the Guggenheim Museum?"
-
-    
-    var q4Option1 = document.createElement("button");
-    q4Option1.id = "answer-btn-four-correct";
-    q4Option1.textContent = "Frank Lloyd Wright";
-    questionEl.appendChild(q4Option1);
-
-    var q4Option2 = document.createElement("button");
-    q4Option2.className = "answer-btn-four";
-    q4Option2.textContent = "Louis Sullivan";
-    questionEl.appendChild(q4Option2);
-
-    var q4Option3 = document.createElement("button");
-    q4Option3.className = "answer-btn-four";
-    q4Option3.textContent = "Antoni Gaudí";
-    questionEl.appendChild(q4Option3);
-
-    var q4Option4 = document.createElement("button");
-    q4Option4.className = "answer-btn-four";
-    q4Option4.textContent = "Richard Neutra";
-    questionEl.appendChild(q4Option4);
-
-    var correctAnswerFourEl = document.querySelector("#answer-btn-four-correct");
-    correctAnswerFourEl.addEventListener("click", questionFive);
-    
-    var incorrectAnswerFourEl = document.querySelector(".answer-btn-four");
-    incorrectAnswerFourEl.addEventListener("click", questionFive);
-};
-
-var questionFive = function(event) {
-    event.preventDefault();
 
     questionEl.className = "fifth-question";
     questionEl.textContent = "The Last Supper by Leonardo da Vinci is located in which Italian town?"
 
-    var q5Option1 = document.createElement("button");
-    q5Option1.className = "answer-btn-five";
-    q5Option1.textContent = "Florence";
-    questionEl.appendChild(q5Option1);
+    var q4Option1 = document.createElement("button");
+    q4Option1.className = "answer-btn-five";
+    q4Option1.textContent = "Florence";
+    questionEl.appendChild(q4Option1);
 
-    var q5Option2 = document.createElement("button");
-    q5Option2.id = "answer-btn-five-correct";
-    q5Option2.textContent = "Milan";
-    questionEl.appendChild(q5Option2);
+    var q4Option2 = document.createElement("button");
+    q4Option2.id = "answer-btn-five-correct";
+    q4Option2.textContent = "Milan";
+    questionEl.appendChild(q4Option2);
 
-    var q5Option3 = document.createElement("button");
-    q5Option3.className = "answer-btn-four";
-    q5Option3.textContent = "Rome";
-    questionEl.appendChild(q5Option3);
+    var q4Option3 = document.createElement("button");
+    q4Option3.className = "answer-btn-four";
+    q4Option3.textContent = "Rome";
+    questionEl.appendChild(q4Option3);
 
-    var q5Option4 = document.createElement("button");
-    q5Option4.className = "answer-btn-four";
-    q5Option4.textContent = "Siena";
-    questionEl.appendChild(q5Option4);
+    var q4Option4 = document.createElement("button");
+    q4Option4.className = "answer-btn-four";
+    q4Option4.textContent = "Siena";
+    questionEl.appendChild(q4Option4);
 
     var correctAnswerFourEl = document.querySelector("#answer-btn-five-correct");
-    correctAnswerFourEl.addEventListener("click", questionSix);
+    correctAnswerFourEl.addEventListener("click", questionFive);
     
     var incorrectAnswerFourEl = document.querySelector(".answer-btn-five");
-    incorrectAnswerFourEl.addEventListener("click", questionSix);
+    incorrectAnswerFourEl.addEventListener("click", questionFive);
 }
 
-var questionSix = function(event) {
-    event.preventDefault();
-
-    questionEl.className = "sixth-question";
-    questionEl.textContent = "English artist Andy Brown created a portrait of Queen Elizabeth II using what material?";
-
-    var q6Option1 = document.createElement("button");
-    q6Option1.className = "answer-btn-six";
-    q6Option1.textContent = "Bubblegum";
-    questionEl.appendChild(q6Option1);
-
-    var q6Option2 = document.createElement("button");
-    q6Option2.className = "answer-btn-six";
-    q6Option2.textContent = "Fishbones";
-    questionEl.appendChild(q6Option2);
-
-    var q6Option3 = document.createElement("button");
-    q6Option3.className = "answer-btn-six";
-    q6Option3.textContent = "Socks";
-    questionEl.appendChild(q6Option3);
-
-    var q6Option4 = document.createElement("button");
-    q6Option4.id = "answer-btn-six-correct";
-    q6Option4.textContent = "Teabags";
-    questionEl.appendChild(q6Option4);
-
-    var correctAnswerFourEl = document.querySelector("#answer-btn-six-correct");
-    correctAnswerFourEl.addEventListener("click", questionSeven);
-    
-    var incorrectAnswerFourEl = document.querySelector(".answer-btn-six");
-    incorrectAnswerFourEl.addEventListener("click", questionSeven);
-};
-
-var questionSeven = function(event) {
+var questionFive = function(event) {
     event.preventDefault();
 
     questionEl.className = "seventh-question";
     questionEl.textContent = "What do peaches symbolize in Chinese art?";
 
-    var q7Option1 = document.createElement("button");
-    q7Option1.className = "answer-btn-seven";
-    q7Option1.textContent = "Wealth";
-    questionEl.appendChild(q7Option1);
+    var q5Option1 = document.createElement("button");
+    q5Option1.className = "answer-btn-seven";
+    q5Option1.textContent = "Wealth";
+    questionEl.appendChild(q5Option1);
 
-    var q7Option2 = document.createElement("button");
-    q7Option2.className = "answer-btn-seven";
-    q7Option2.textContent = "Death";
-    questionEl.appendChild(q7Option2);
+    var q5Option2 = document.createElement("button");
+    q5Option2.className = "answer-btn-seven";
+    q5Option2.textContent = "Death";
+    questionEl.appendChild(q5Option2);
 
-    var q7Option3 = document.createElement("button");
-    q7Option3.id = "answer-btn-seven-correct";
-    q7Option3.textContent = "Immortality";
-    questionEl.appendChild(q7Option3);
+    var q5Option3 = document.createElement("button");
+    q5Option3.id = "answer-btn-seven-correct";
+    q5Option3.textContent = "Immortality";
+    questionEl.appendChild(q5Option3);
 
-    var q7Option4 = document.createElement("button");
-    q7Option4.className = "answer-btn-seven";
-    q7Option4.textContent = "Plague";
-    questionEl.appendChild(q7Option4);
+    var q5Option4 = document.createElement("button");
+    q5Option4.className = "answer-btn-seven";
+    q5Option4.textContent = "Plague";
+    questionEl.appendChild(q5Option4);
 
     var correctAnswerFourEl = document.querySelector("#answer-btn-seven-correct");
-    correctAnswerFourEl.addEventListener("click");
+    correctAnswerFourEl.addEventListener("click", showScore);
     
     var incorrectAnswerFourEl = document.querySelector(".answer-btn-seven");
-    incorrectAnswerFourEl.addEventListener("click");
+    incorrectAnswerFourEl.addEventListener("click", showScore);
 };
 
+function showScore() {
 
-
+};
 
 buttonEl.addEventListener("click", questionOne);
