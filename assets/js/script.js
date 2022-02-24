@@ -16,14 +16,17 @@ var questionEl = document.createElement("ul");
 
 //var timerEl = document.getElementById("#countdown");
 
+
+//when the start button is clicked, the countdown() function begins counting down
 function countdown() {
+    var timerContainerEl = document.getElementById("timer");
     //give the user 45 seconds to finish the quiz
     var timeLeft = 45;
 
     //if the amount of time the user has left is greater than 0, inform the user how much time is left
-    var timeInterval = setTimeout (function() {
+    var timeCountdown = setTimeout(function() {
         if (timeLeft > 0) {
-        timerEl.textContent = timeLeft + " seconds remaining!";
+        timerContainerEl.textContent = timeLeft + " seconds remaining!";
         timeLeft--;
     //if the user clicks the wrong button, take 5 seconds away from the time
 
@@ -63,6 +66,7 @@ var questionOne = function(event) {
     q1Option2.setAttribute("data-question-one", questionOneChoice);
     q1Option2.onclick = function() {
         window.alert("Correct!");
+        userScore += 5;
         questionTwo();
     };
 
@@ -121,8 +125,9 @@ var questionTwo = function() {
     q2Option3.setAttribute("data-question-two", questionTwoChoice);
     q2Option3.onclick = function() {
         window.alert("Correct!");
+        userScore += 5;
         questionThree();
-    }
+    };
 
     var q2Option4 = document.createElement("button");
     q2Option4.className = "answer-btn-two";
@@ -131,7 +136,7 @@ var questionTwo = function() {
     q2Option4.onclick = function() {
         window.alert("Wrong!");
         questionThree();
-    }
+    };
     
     questionEl.appendChild(q2Option1);
     questionEl.appendChild(q2Option2);
@@ -154,9 +159,8 @@ var questionThree = function() {
     q3Option1.onclick = function() {
         window.alert("Wrong!");
         questionFour();
-    }
+    };
     
-
     var q3Option2 = document.createElement("button");
     q3Option2.className = "answer-btn-three";
     q3Option2.textContent = "Paul Cézanne";
@@ -164,9 +168,8 @@ var questionThree = function() {
     q3Option2.onclick = function() {
         window.alert("Wrong!");
         questionFour();
-    }
+    };
     
-
     var q3Option3 = document.createElement("button");
     q3Option3.className = "answer-btn-three";
     q3Option3.textContent = "Henri Matisse";
@@ -174,7 +177,7 @@ var questionThree = function() {
     q3Option3.onclick = function() {
         window.alert("Wrong!");
         questionFour();
-    }
+    };
     
 
     var q3Option4 = document.createElement("button");
@@ -182,9 +185,10 @@ var questionThree = function() {
     q3Option4.textContent = "Edgar Degas";
     q3Option4.setAttribute("data-question-three", questionThreeChoice);
     q3Option4.onclick = function() {
-        window.alert("Correct!")
+        window.alert("Correct!");
+        userScore += 5;
         questionFour();
-    }
+    };
 
     questionEl.appendChild(q3Option1);
     questionEl.appendChild(q3Option2);
@@ -213,6 +217,7 @@ var questionFour = function() {
     q4Option2.setAttribute("data-question-four", questionFourChoice);
     q4Option2.onclick = function() {
         window.alert("Correct!");
+        userScore += 5;
         questionFive();
     };
 
@@ -270,6 +275,7 @@ var questionFive = function() {
     q5Option3.setAttribute("data-question-five", questionFiveChoice);
     q5Option3.onclick = function() {
         window.alert("Correct!");
+        userScore += 5;
         showScore();
     };
 
@@ -289,9 +295,15 @@ var questionFive = function() {
 };
 
 function showScore() {
+
+    var finalScore = document.createElement("div");
+    finalScore.textContent = "You've finished the quiz! Your final score is " + userScore + ".";
+    //append finalScore variable to parent container, questionHolderEl
+    questionHolderEl.appendChild(finalScore);
     //when the user finishes the quiz, they receive their score
     //add 5 points to their score for each correct answer
     //take off 10 seconds for each incorrect answer
+
 };
 
 buttonEl.addEventListener("click", questionOne);
