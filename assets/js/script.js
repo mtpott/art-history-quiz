@@ -1,41 +1,32 @@
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// WHEN I answer a question
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and score
-
 var buttonEl = document.querySelector("#start");
 var questionHolderEl = document.querySelector(".questions");
 var questionEl = document.createElement("ul");
 
-//var timerEl = document.getElementById("#countdown");
-
+var timerEl = document.getElementById("timer");
+var timerContainerEl = document.getElementById("timer-container");
 
 //when the start button is clicked, the countdown() function begins counting down
 function countdown() {
-    var timerContainerEl = document.getElementById("timer");
     //give the user 45 seconds to finish the quiz
     var timeLeft = 45;
 
     //if the amount of time the user has left is greater than 0, inform the user how much time is left
-    var timeCountdown = setTimeout(function() {
+    var timeCountdown = setInterval(function() {
         if (timeLeft > 0) {
-        timerContainerEl.textContent = timeLeft + " seconds remaining!";
+        timerContainerEl.textContent = timeLeft + " seconds left";
         timeLeft--;
     //if the user clicks the wrong button, take 5 seconds away from the time
 
     //if the user runs out of time before they finish the quiz, show them their score
     } else {
             timerEl.textContent = "Out of time!";
+            clearInterval(timeCountdown);
             showScore();
         }
     }, 1000);
+
+    //append timerEl to timerContainerEl
+    timerContainerEl.appendChild(timerEl);
 };
 
 //to keep track of the user's score
@@ -307,3 +298,4 @@ function showScore() {
 };
 
 buttonEl.addEventListener("click", questionOne);
+buttonEl.addEventListener("click", countdown);
