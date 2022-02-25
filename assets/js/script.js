@@ -5,10 +5,16 @@ var questionEl = document.createElement("ul");
 var timerEl = document.getElementById("timer");
 var timerContainerEl = document.getElementById("timer-container");
 
+//variable to determine that the quiz is over
+var finishQuiz = true;
+
+//give the user 45 seconds to finish the quiz
+var timeLeft = 30;
+//to keep track of the user's score
+var userScore = 0;
+
 //when the start button is clicked, the countdown() function begins counting down
 function countdown() {
-    //give the user 45 seconds to finish the quiz
-    var timeLeft = 45;
 
     //if the amount of time the user has left is greater than 0, inform the user how much time is left
     var timeCountdown = setInterval(function() {
@@ -17,23 +23,22 @@ function countdown() {
         timeLeft--;
     //if the user runs out of time before they finish the quiz, show them their score
         } else if (timeLeft === 0) {
-               timerContainerEl.textContent = "Out of time! Let's see how you did.";
-               clearInterval(timeCountdown);
-               showScore();
+            timerContainerEl.textContent = "Out of time! Let's see how you did.";
+            clearInterval(timeCountdown);
+            showScore();
+        } else if (finishQuiz) {
+            clearInterval(timeCountdown);
         }
     }, 1000);
-
     //append timerEl to timerContainerEl
     timerContainerEl.appendChild(timerEl);
 };
-
-//to keep track of the user's score
-var userScore = 0;
 
 var questionOne = function(event) {
     event.preventDefault();
 //create the question element that appears when the button is clicked
     questionEl.className = "first-question";
+    document.getElementById("start").style.visibility = "hidden";
 
     //add the content for the div element that appears
     questionEl.textContent = "Who sculpted the David?";
@@ -47,6 +52,8 @@ var questionOne = function(event) {
     q1Option1.onclick = function() {
         window.alert("Wrong!");
         questionTwo();
+    //if the user clicks the wrong button, take 7 seconds away from the time
+        timeLeft -= 5;
     };
 
     var q1Option2 = document.createElement("button");
@@ -58,8 +65,6 @@ var questionOne = function(event) {
     //if the user answers correctly, they will get 5 points added to their score and moved to the next question
         userScore += 5;
         questionTwo();
-    //if the user clicks the wrong button, take 5 seconds away from the time
-        timeLeft -= 5;
     };
 
     var q1Option3 = document.createElement("button");
@@ -69,6 +74,7 @@ var questionOne = function(event) {
     q1Option3.onclick = function() {
         window.alert("Wrong!");
         questionTwo();
+        timeLeft -= 5;
     };
 
     var q1Option4 = document.createElement("button");
@@ -78,6 +84,7 @@ var questionOne = function(event) {
     q1Option4.onclick = function() {
         window.alert("Wrong!");
         questionTwo();
+        timeLeft -= 5;
     };
 
     questionEl.appendChild(q1Option1);
@@ -100,6 +107,7 @@ var questionTwo = function() {
     q2Option1.onclick = function() {
         window.alert("Wrong!");
         questionThree();
+        timeLeft -= 5;
     };
 
     var q2Option2 = document.createElement("button");
@@ -109,6 +117,7 @@ var questionTwo = function() {
     q2Option2.onclick = function() {
         window.alert("Wrong!");
         questionThree();
+        timeLeft -= 5;
     };
 
     var q2Option3 = document.createElement("button");
@@ -128,6 +137,7 @@ var questionTwo = function() {
     q2Option4.onclick = function() {
         window.alert("Wrong!");
         questionThree();
+        timeLeft -= 5;
     };
     
     questionEl.appendChild(q2Option1);
@@ -151,6 +161,7 @@ var questionThree = function() {
     q3Option1.onclick = function() {
         window.alert("Wrong!");
         questionFour();
+        timeLeft -= 5;
     };
     
     var q3Option2 = document.createElement("button");
@@ -160,6 +171,7 @@ var questionThree = function() {
     q3Option2.onclick = function() {
         window.alert("Wrong!");
         questionFour();
+        timeLeft -= 5;
     };
     
     var q3Option3 = document.createElement("button");
@@ -169,6 +181,7 @@ var questionThree = function() {
     q3Option3.onclick = function() {
         window.alert("Wrong!");
         questionFour();
+        timeLeft -= 5;
     };
     
 
@@ -201,6 +214,7 @@ var questionFour = function() {
     q4Option1.onclick = function() {
         window.alert("Wrong!");
         questionFive();
+        timeLeft -= 5;
     };
 
     var q4Option2 = document.createElement("button");
@@ -220,6 +234,7 @@ var questionFour = function() {
     q4Option3.onclick = function() {
         window.alert("Wrong!");
         questionFive();
+        timeLeft -= 5;
     };
 
     var q4Option4 = document.createElement("button");
@@ -229,6 +244,7 @@ var questionFour = function() {
     q4Option4.onclick = function() {
         window.alert("Wrong!");
         questionFive();
+        timeLeft -= 5;
     };
 
     questionEl.appendChild(q4Option1);
@@ -249,7 +265,7 @@ var questionFive = function() {
     q5Option1.setAttribute("data-question-five", questionFiveChoice);
     q5Option1.onclick = function() {
         window.alert("Wrong!");
-        showScore();
+        showScore(); 
     };
 
     var q5Option2 = document.createElement("button");
@@ -287,16 +303,56 @@ var questionFive = function() {
 };
 
 function showScore() {
+    //hide the final quiz question, so the user can't see it
+    questionEl.style.visibility = "hidden";
 
     var finalScore = document.createElement("div");
     finalScore.textContent = "Your final score is " + userScore + "!";
     //append finalScore variable to parent container, questionHolderEl
     questionHolderEl.appendChild(finalScore);
     //when the user finishes the quiz, they receive their score
-    //add 5 points to their score for each correct answer
-    //take off 10 seconds for each incorrect answer
-
+    var scoreStore = document.createElement("div");
+    scoreStore.textContent = "Enter your initials to save your score!";
+    questionHolderEl.appendChild(scoreStore);
+    //input element 
+    var scoreSubmitEl = document.createElement("input");
+    scoreSubmitEl.setAttribute("input", "text");
+    scoreStore.appendChild(scoreSubmitEl);
+    //submit button for score
+    var scoreButtonEL = document.createElement("button");
+    scoreButtonEL.className = "submit-btn";
+    scoreButtonEL.textContent = "Submit";
+    scoreStore.appendChild(scoreButtonEL);
+    
+    //add user data into an object
+    var userData = {
+        name: scoreSubmitEl,
+        score: userScore
+    };
+    
+    var saveScore = function() {
+        localStorage.setItem("score", JSON.stringify(userData));
+    }
+    saveScore();
+    loadScore();
 };
+
+
+//function to load scores into a list
+function loadScore() {
+    var scoreList = document.createElement("ol");
+    scoreList.appendChild(scoreStore);
+
+    savedScores = localStorage.getItem("score");
+    userData = JSON.parse(score);
+    if (!savedScores) {
+        return false;
+    };
+
+    for (var i = 0; i < savedScores.length; i++) {
+        console.log("show me my score");
+    }
+}
 
 buttonEl.addEventListener("click", questionOne);
 buttonEl.addEventListener("click", countdown);
