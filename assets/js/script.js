@@ -15,13 +15,11 @@ function countdown() {
         if (timeLeft > 0) {
         timerContainerEl.textContent = timeLeft + " seconds left";
         timeLeft--;
-    //if the user clicks the wrong button, take 5 seconds away from the time
-
     //if the user runs out of time before they finish the quiz, show them their score
-    } else {
-            timerEl.textContent = "Out of time!";
-            clearInterval(timeCountdown);
-            showScore();
+        } else if (timeLeft === 0) {
+               timerContainerEl.textContent = "Out of time! Let's see how you did.";
+               clearInterval(timeCountdown);
+               showScore();
         }
     }, 1000);
 
@@ -43,7 +41,7 @@ var questionOne = function(event) {
     var questionOneChoice = questionEl.getAttribute("data-question-one");
 
     var q1Option1 = document.createElement("button");
-    q1Option1.className = "answer-btn-one";
+    q1Option1.className = "answer-btn";
     q1Option1.textContent = "da Vinci";
     q1Option1.setAttribute("data-question-one", questionOneChoice);
     q1Option1.onclick = function() {
@@ -57,12 +55,15 @@ var questionOne = function(event) {
     q1Option2.setAttribute("data-question-one", questionOneChoice);
     q1Option2.onclick = function() {
         window.alert("Correct!");
+    //if the user answers correctly, they will get 5 points added to their score and moved to the next question
         userScore += 5;
         questionTwo();
+    //if the user clicks the wrong button, take 5 seconds away from the time
+        timeLeft -= 5;
     };
 
     var q1Option3 = document.createElement("button");
-    q1Option3.className = "answer-btn-one";
+    q1Option3.className = "answer-btn";
     q1Option3.textContent = "Donatello";
     q1Option3.setAttribute("data-question-one", questionOneChoice);
     q1Option3.onclick = function() {
@@ -71,7 +72,7 @@ var questionOne = function(event) {
     };
 
     var q1Option4 = document.createElement("button");
-    q1Option4.className = "answer-btn-one";
+    q1Option4.className = "answer-btn";
     q1Option4.textContent = "Botticelli";
     q1Option4.setAttribute("data-question-one", questionOneChoice);
     q1Option4.onclick = function() {
@@ -93,7 +94,7 @@ var questionTwo = function() {
     questionHolderEl.appendChild(questionEl);
 
     var q2Option1 = document.createElement("button");
-    q2Option1.className = "answer-btn-two";
+    q2Option1.className = "answer-btn";
     q2Option1.textContent = "His finger";
     q2Option1.setAttribute("data-question-two", questionTwoChoice);
     q2Option1.onclick = function() {
@@ -102,7 +103,7 @@ var questionTwo = function() {
     };
 
     var q2Option2 = document.createElement("button");
-    q2Option2.className = "answer-btn-two";
+    q2Option2.className = "answer-btn";
     q2Option2.textContent = "His toe";
     q2Option2.setAttribute("data-option-two", questionTwoChoice);
     q2Option2.onclick = function() {
@@ -121,7 +122,7 @@ var questionTwo = function() {
     };
 
     var q2Option4 = document.createElement("button");
-    q2Option4.className = "answer-btn-two";
+    q2Option4.className = "answer-btn";
     q2Option4.textContent = "His nose";
     q2Option4.setAttribute("data-question-two", questionTwoChoice);
     q2Option4.onclick = function() {
@@ -144,7 +145,7 @@ var questionThree = function() {
     questionHolderEl.appendChild(questionEl);
 
     var q3Option1 = document.createElement("button");
-    q3Option1.className = "answer-btn-three";
+    q3Option1.className = "answer-btn";
     q3Option1.textContent = "Claude Monet";
     q3Option1.setAttribute("data-question-three", questionThreeChoice);
     q3Option1.onclick = function() {
@@ -153,7 +154,7 @@ var questionThree = function() {
     };
     
     var q3Option2 = document.createElement("button");
-    q3Option2.className = "answer-btn-three";
+    q3Option2.className = "answer-btn";
     q3Option2.textContent = "Paul Cézanne";
     q3Option2.setAttribute("data-question-three", questionThreeChoice);
     q3Option2.onclick = function() {
@@ -162,7 +163,7 @@ var questionThree = function() {
     };
     
     var q3Option3 = document.createElement("button");
-    q3Option3.className = "answer-btn-three";
+    q3Option3.className = "answer-btn";
     q3Option3.textContent = "Henri Matisse";
     q3Option3.setAttribute("data-question-three", questionThreeChoice);
     q3Option3.onclick = function() {
@@ -194,7 +195,7 @@ var questionFour = function() {
     questionHolderEl.appendChild(questionEl);
 
     var q4Option1 = document.createElement("button");
-    q4Option1.className = "answer-btn-four";
+    q4Option1.className = "answer-btn";
     q4Option1.textContent = "Florence";
     q4Option1.setAttribute("data-question-four", questionFourChoice);
     q4Option1.onclick = function() {
@@ -213,7 +214,7 @@ var questionFour = function() {
     };
 
     var q4Option3 = document.createElement("button");
-    q4Option3.className = "answer-btn-four";
+    q4Option3.className = "answer-btn";
     q4Option3.textContent = "Rome";
     q4Option3.setAttribute("data-question-four", questionFourChoice);
     q4Option3.onclick = function() {
@@ -222,7 +223,7 @@ var questionFour = function() {
     };
 
     var q4Option4 = document.createElement("button");
-    q4Option4.className = "answer-btn-four";
+    q4Option4.className = "answer-btn";
     q4Option4.textContent = "Siena";
     q4Option4.setAttribute("data-question-four", questionFourChoice);
     q4Option4.onclick = function() {
@@ -243,7 +244,7 @@ var questionFive = function() {
     questionHolderEl.appendChild(questionEl);
 
     var q5Option1 = document.createElement("button");
-    q5Option1.className = "answer-btn-five";
+    q5Option1.className = "answer-btn";
     q5Option1.textContent = "Wealth";
     q5Option1.setAttribute("data-question-five", questionFiveChoice);
     q5Option1.onclick = function() {
@@ -252,7 +253,7 @@ var questionFive = function() {
     };
 
     var q5Option2 = document.createElement("button");
-    q5Option2.className = "answer-btn-five";
+    q5Option2.className = "answer-btn";
     q5Option2.textContent = "Death";
     q5Option2.setAttribute("data-question-five", questionFiveChoice);
     q5Option2.onclick = function() {
@@ -271,7 +272,7 @@ var questionFive = function() {
     };
 
     var q5Option4 = document.createElement("button");
-    q5Option4.className = "answer-btn-five";
+    q5Option4.className = "answer-btn";
     q5Option4.textContent = "Plague";
     q5Option4.setAttribute("data-question-five", questionFiveChoice);
     q5Option4.onclick = function() {
@@ -288,7 +289,7 @@ var questionFive = function() {
 function showScore() {
 
     var finalScore = document.createElement("div");
-    finalScore.textContent = "You've finished the quiz! Your final score is " + userScore + ".";
+    finalScore.textContent = "Your final score is " + userScore + "!";
     //append finalScore variable to parent container, questionHolderEl
     questionHolderEl.appendChild(finalScore);
     //when the user finishes the quiz, they receive their score

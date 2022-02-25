@@ -11,6 +11,11 @@ header {
 
 .quiz-content {
     margin: 15px;
+    padding: 10px;
+    border: 10px;
+    height: auto;
+    width: auto;
+    text-align: center;
 }
 
 #start {
@@ -22,6 +27,46 @@ header {
 
 #start:hover {
     color: #00916E;
+}
+
+.quiz-content-wrapper {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.first-question,
+.second-question,
+.third-question,
+.fourth-question,
+.fifth-question {
+    flex-direction: column;
+    width: auto;
+    height: 50%;
+    font-size: 20px;
+    /* margin-right: 200px;
+    margin-left: 200px;
+    padding-right: 190px;
+    padding-left: 190px; */
+}
+
+button {
+    margin: 5px;
+}
+
+.answer-btn {
+    font-size: 20px;
+    width: 180px;
+    height: 40px;
+}
+
+#answer-btn-one-correct, 
+#answer-btn-two-correct, 
+#answer-btn-three-correct, 
+#answer-btn-four-correct, 
+#answer-btn-five-correct {
+    font-size: 20px;
+    width: 180px;
+    height: 40px;
 }
 
 footer {
