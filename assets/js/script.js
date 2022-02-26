@@ -1,12 +1,15 @@
 var buttonEl = document.querySelector("#start");
 var questionHolderEl = document.querySelector(".questions");
 var questionEl = document.createElement("ul");
+var scoreContainerEl = document.querySelector(".score-container");
 
 var timerEl = document.getElementById("timer");
 var timerContainerEl = document.getElementById("timer-container");
 
 //variable to determine that the quiz is over
-var finishQuiz = true;
+//after every function, declare the same variable to ensure that it's still true and if it's not,
+//run the last part of the if/else statement in the countdown function
+var questionsLeft = true;
 
 //give the user 45 seconds to finish the quiz
 var timeLeft = 30;
@@ -26,7 +29,7 @@ function countdown() {
             timerContainerEl.textContent = "Out of time! Let's see how you did.";
             clearInterval(timeCountdown);
             showScore();
-        } else if (finishQuiz) {
+        } else if (!questionsLeft) {
             clearInterval(timeCountdown);
         }
     }, 1000);
@@ -91,6 +94,8 @@ var questionOne = function(event) {
     questionEl.appendChild(q1Option2);
     questionEl.appendChild(q1Option3);
     questionEl.appendChild(q1Option4);
+
+    questionsLeft = new Boolean (true);
 };
 
 var questionTwo = function() {
@@ -145,8 +150,9 @@ var questionTwo = function() {
     questionEl.appendChild(q2Option3);
     questionEl.appendChild(q2Option4);
 
-};
+    questionsLeft = new Boolean (true);
 
+};
 
 var questionThree = function() {
     questionEl.className = "third-question";
@@ -199,6 +205,8 @@ var questionThree = function() {
     questionEl.appendChild(q3Option2);
     questionEl.appendChild(q3Option3);
     questionEl.appendChild(q3Option4);
+
+    questionsLeft = new Boolean (true);
 };
 
 var questionFour = function() {
@@ -251,6 +259,8 @@ var questionFour = function() {
     questionEl.appendChild(q4Option2);
     questionEl.appendChild(q4Option3);
     questionEl.appendChild(q4Option4);
+
+    questionsLeft = new Boolean (true);
 };
 
 var questionFive = function() {
@@ -300,6 +310,8 @@ var questionFive = function() {
     questionEl.appendChild(q5Option2);
     questionEl.appendChild(q5Option3);
     questionEl.appendChild(q5Option4);
+
+    questionsLeft = new Boolean (false);
 };
 
 function showScore() {
@@ -316,7 +328,7 @@ function showScore() {
     questionHolderEl.appendChild(scoreStore);
     //input element 
     var scoreSubmitEl = document.createElement("input");
-    scoreSubmitEl.setAttribute("input", "text");
+    scoreSubmitEl.setAttribute("type", "text");
     scoreStore.appendChild(scoreSubmitEl);
     //submit button for score
     var scoreButtonEL = document.createElement("button");
@@ -333,25 +345,30 @@ function showScore() {
     var saveScore = function() {
         localStorage.setItem("score", JSON.stringify(userData));
     }
+
+    scoreList = localStorage.getItem("score");
+    userData = JSON.parse(userData);
+
     saveScore();
     loadScore();
 };
 
-
 //function to load scores into a list
 function loadScore() {
     var scoreList = document.createElement("ol");
-    scoreList.appendChild(scoreStore);
+    scoreList.appendChild(scoreContainerEl);
 
-    savedScores = localStorage.getItem("score");
-    userData = JSON.parse(score);
-    if (!savedScores) {
+    if (!scoreList) {
         return false;
     };
 
-    for (var i = 0; i < savedScores.length; i++) {
-        console.log("show me my score");
+    for (var i = 0; i < scoreList.length; i++) {
+        console.log(scoreList[i]);
     }
+
+    var scoreItem = document.createElement("li");
+    scoreItem.className = "score-item";
+    scoreItem.setAttribute("data-score-id", score[i].id);
 }
 
 buttonEl.addEventListener("click", questionOne);
