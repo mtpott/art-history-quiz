@@ -6,9 +6,9 @@ var scoreContainerEl = document.querySelector(".score-container");
 var timerEl = document.getElementById("timer");
 var timerContainerEl = document.getElementById("timer-container");
 
-//variable to determine that the quiz is over
 //after every function, declare the same variable to ensure that it's still true and if it's not,
 //run the last part of the if/else statement in the countdown function
+//variable to determine that the quiz is over
 var questionsLeft = true;
 
 //give the user 30 seconds to finish the quiz
@@ -41,31 +41,37 @@ var questionOne = function(event) {
     event.preventDefault();
 //create the question element that appears when the button is clicked
     questionEl.className = "first-question";
+//after the start button is clicked, it will hide so the user cannot hit it again
     document.getElementById("start").style.visibility = "hidden";
 
-    //add the content for the div element that appears
+//add the content for the div element that appears
     questionEl.textContent = "Who sculpted the David?";
+//append questionEl to its parent container, questionHolderEl
     questionHolderEl.appendChild(questionEl);
     var questionOneChoice = questionEl.getAttribute("data-question-one");
 
+//for each question, there are four choices--one right, three wrong
+//they are alerted whether they choose correctly or incorrectly
     var q1Option1 = document.createElement("button");
     q1Option1.className = "answer-btn";
     q1Option1.textContent = "da Vinci";
     q1Option1.setAttribute("data-question-one", questionOneChoice);
+//if the user clicks on an incorrect answer, such as this one, they will be alerted that they chose incorrectly
+//they are then moved to the next question, but not before their time is decremented by 5 seconds
     q1Option1.onclick = function() {
         window.alert("Wrong!");
         questionTwo();
-    //if the user clicks the wrong button, take 7 seconds away from the time
         timeLeft -= 5;
     };
 
+//in this case, if the user answers correctly, they will get 5 points added to their score and moved to the next question
+//the rest of the logic is the same
     var q1Option2 = document.createElement("button");
     q1Option2.id = "answer-btn-one-correct";
     q1Option2.textContent = "Michelangelo";
     q1Option2.setAttribute("data-question-one", questionOneChoice);
     q1Option2.onclick = function() {
         window.alert("Correct!");
-    //if the user answers correctly, they will get 5 points added to their score and moved to the next question
         userScore += 5;
         questionTwo();
     };
@@ -90,6 +96,7 @@ var questionOne = function(event) {
         timeLeft -= 5;
     };
 
+//append each of the question buttons to the original question content so they are visible to the viewer
     questionEl.appendChild(q1Option1);
     questionEl.appendChild(q1Option2);
     questionEl.appendChild(q1Option3);
@@ -99,7 +106,6 @@ var questionOne = function(event) {
 };
 
 var questionTwo = function() {
-//create the question element that appears when the button is clicked
     questionEl.className = "second-question";
     questionEl.textContent = "Vincent van Gogh famously injured himself by cutting off a body part. Which part did he cut off?";
     var questionTwoChoice = questionEl.getAttribute("data-question-two");
@@ -269,6 +275,8 @@ var questionFive = function() {
     var questionFiveChoice = questionEl.getAttribute("data-question-five");
     questionHolderEl.appendChild(questionEl);
 
+
+//after the last question, the showScore() function is called so the viewer can see how many points they get
     var q5Option1 = document.createElement("button");
     q5Option1.className = "answer-btn";
     q5Option1.textContent = "Wealth";
@@ -314,12 +322,15 @@ var questionFive = function() {
     questionsLeft = new Boolean (false);
 };
 
+//declaring scoresNotShown as true outside of the showScore() function and then declaring it as false inside of the function
+//will make the showScore() function run only once--I had trouble with this, because if the user finished the quiz before the amount of
+//time is up, it would still be called inside of the countdown() function and would show the score statement twice.
 var scoresNotShown = true;
 function showScore() {
     if (scoresNotShown) {
         scoresNotShown = false;
 
-        //hide the final quiz question, so the user can't see it
+        //hide the final quiz question once this function is called, so the user can't see it
         questionEl.style.visibility = "hidden";
 
         var finalScore = document.createElement("div");
@@ -357,9 +368,12 @@ function showScore() {
         name: textInputValue,
         score: userScore
     };
+    //when the user clicks the submit button after adding their initials, the printScore() function should load and take in the value
+    //of the input.
         scoreButtonEL.addEventListener("click", printScore);
             function printScore () {
                 document.getElementById("input-id").value;
+                console.log(printScore);
             }
         localStorage.setItem("score", JSON.stringify(userData));
         console.log(userData);
