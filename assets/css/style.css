@@ -67,6 +67,12 @@ button {
     height: 40px;
 }
 
+.score-container {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
 footer {
     font-size: 10px;
 }

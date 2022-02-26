@@ -328,13 +328,14 @@ function showScore() {
         questionHolderEl.appendChild(finalScore);
         //when the user finishes the quiz, they receive their score
         var scoreStore = document.createElement("div");
-        scoreStore.textContent = "Enter your initials to save your score!";
+        scoreStore.textContent = "Enter your initials to save your score:";
         questionHolderEl.appendChild(scoreStore);
-
+        
         var scoreSubmitEl = document.createElement("input");
-        scoreSubmitEl.setAttribute("type", "text");
+        scoreSubmitEl.setAttribute("type", "input");
         scoreSubmitEl.id = "input-id";
         scoreStore.appendChild(scoreSubmitEl);
+
         //submit button for score
         var scoreButtonEL = document.createElement("button");
         scoreButtonEL.className = "submit-btn";
@@ -343,6 +344,7 @@ function showScore() {
 
         scoreButtonEL.onclick = function() {
             saveScore();
+            loadScore();
         }
     };
  
@@ -355,17 +357,26 @@ function showScore() {
         name: textInputValue,
         score: userScore
     };
-        
+        scoreButtonEL.addEventListener("click", printScore);
+            function printScore () {
+                document.getElementById("input-id").value;
+            }
         localStorage.setItem("score", JSON.stringify(userData));
-        console.log("saveScore function");
+        console.log(userData);
+        //console.log(userData) prints the correct object but the value of the input field is UNDEFINED
+
+    //for whatever reason, the code will not read the value of the textbox and it returns ""
+        var textInputValue = scoreSubmitEl.value;
     }
-    var textInputValue = scoreSubmitEl.value;
-    loadScore();
     scoreList = localStorage.getItem("score");
 };
 
 //function to load scores into a list
 function loadScore() {
+
+    loadUserScore = localStorage.getItem("score");
+    loadUserScore = JSON.parse(loadUserScore);
+
     var scoreList = document.createElement("ol");
     scoreList.appendChild(scoreContainerEl);
 
@@ -382,6 +393,13 @@ function loadScore() {
     var scoreItem = document.createElement("li");
     scoreItem.className = "score-item";
     scoreItem.setAttribute("data-score-id", userScore);
+
+    //append scoreItem to scoreContainer to print score
+    //console.log scoreItem prints the <li> element to the page, not the score itself
+    //console.log(loadUserScore) will not show the value of the input field
+    console.log(loadUserScore);
+    scoreContainerEl.appendChild(scoreItem);
+
 }
 
 buttonEl.addEventListener("click", questionOne);
