@@ -11,7 +11,7 @@ var timerContainerEl = document.getElementById("timer-container");
 //run the last part of the if/else statement in the countdown function
 var questionsLeft = true;
 
-//give the user 45 seconds to finish the quiz
+//give the user 30 seconds to finish the quiz
 var timeLeft = 30;
 //to keep track of the user's score
 var userScore = 0;
@@ -25,11 +25,11 @@ function countdown() {
         timerContainerEl.textContent = timeLeft + " seconds left";
         timeLeft--;
     //if the user runs out of time before they finish the quiz, show them their score
-        } else if (timeLeft === 0) {
+        } else if (timeLeft <= 0) {
             timerContainerEl.textContent = "Out of time! Let's see how you did.";
             clearInterval(timeCountdown);
             showScore();
-        } else if (!questionsLeft) {
+        } else if (questionsLeft) {
             clearInterval(timeCountdown);
         }
     }, 1000);
@@ -314,49 +314,62 @@ var questionFive = function() {
     questionsLeft = new Boolean (false);
 };
 
+var scoresNotShown = true;
 function showScore() {
-    //hide the final quiz question, so the user can't see it
-    questionEl.style.visibility = "hidden";
+    if (scoresNotShown) {
+        scoresNotShown = false;
 
-    var finalScore = document.createElement("div");
-    finalScore.textContent = "Your final score is " + userScore + "!";
-    //append finalScore variable to parent container, questionHolderEl
-    questionHolderEl.appendChild(finalScore);
-    //when the user finishes the quiz, they receive their score
-    var scoreStore = document.createElement("div");
-    scoreStore.textContent = "Enter your initials to save your score!";
-    questionHolderEl.appendChild(scoreStore);
-    //input element 
-    var scoreSubmitEl = document.createElement("input");
-    scoreSubmitEl.setAttribute("type", "text");
-    scoreStore.appendChild(scoreSubmitEl);
-    //submit button for score
-    var scoreButtonEL = document.createElement("button");
-    scoreButtonEL.className = "submit-btn";
-    scoreButtonEL.textContent = "Submit";
-    scoreStore.appendChild(scoreButtonEL);
-    
-    //add user data into an object
-    var userData = {
-        name: scoreSubmitEl,
+        //hide the final quiz question, so the user can't see it
+        questionEl.style.visibility = "hidden";
+
+        var finalScore = document.createElement("div");
+        finalScore.textContent = "Your final score is " + userScore + "!";
+        //append finalScore variable to parent container, questionHolderEl
+        questionHolderEl.appendChild(finalScore);
+        //when the user finishes the quiz, they receive their score
+        var scoreStore = document.createElement("div");
+        scoreStore.textContent = "Enter your initials to save your score!";
+        questionHolderEl.appendChild(scoreStore);
+
+        var scoreSubmitEl = document.createElement("input");
+        scoreSubmitEl.setAttribute("type", "text");
+        scoreSubmitEl.id = "input-id";
+        scoreStore.appendChild(scoreSubmitEl);
+        //submit button for score
+        var scoreButtonEL = document.createElement("button");
+        scoreButtonEL.className = "submit-btn";
+        scoreButtonEL.textContent = "Submit";
+        scoreStore.appendChild(scoreButtonEL);
+
+        scoreButtonEL.onclick = function() {
+            saveScore();
+        }
+    };
+ 
+
+    console.log("showscore function");
+
+    var saveScore = function() {
+         //add user data into an object
+        var userData = {
+        name: textInputValue,
         score: userScore
     };
-    
-    var saveScore = function() {
+        
         localStorage.setItem("score", JSON.stringify(userData));
+        console.log("saveScore function");
     }
-
-    scoreList = localStorage.getItem("score");
-    userData = JSON.parse(userData);
-
-    saveScore();
+    var textInputValue = scoreSubmitEl.value;
     loadScore();
+    scoreList = localStorage.getItem("score");
 };
 
 //function to load scores into a list
 function loadScore() {
     var scoreList = document.createElement("ol");
     scoreList.appendChild(scoreContainerEl);
+
+    console.log("loadscore function");
 
     if (!scoreList) {
         return false;
@@ -368,7 +381,7 @@ function loadScore() {
 
     var scoreItem = document.createElement("li");
     scoreItem.className = "score-item";
-    scoreItem.setAttribute("data-score-id", score[i].id);
+    scoreItem.setAttribute("data-score-id", userScore);
 }
 
 buttonEl.addEventListener("click", questionOne);
