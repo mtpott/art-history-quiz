@@ -326,6 +326,10 @@ var questionFive = function() {
 //will make the showScore() function run only once--I had trouble with this, because if the user finished the quiz before the amount of
 //time is up, it would still be called inside of the countdown() function and would show the score statement twice.
 var scoresNotShown = true;
+
+var scoreSubmitEl = document.createElement("input");
+var scoreButtonEL = document.createElement("button");
+
 function showScore() {
     if (scoresNotShown) {
         scoresNotShown = false;
@@ -342,13 +346,11 @@ function showScore() {
         scoreStore.textContent = "Enter your initials to save your score:";
         questionHolderEl.appendChild(scoreStore);
         
-        var scoreSubmitEl = document.createElement("input");
         scoreSubmitEl.setAttribute("type", "input");
         scoreSubmitEl.id = "input-id";
         scoreStore.appendChild(scoreSubmitEl);
 
         //submit button for score
-        var scoreButtonEL = document.createElement("button");
         scoreButtonEL.className = "submit-btn";
         scoreButtonEL.textContent = "Submit";
         scoreStore.appendChild(scoreButtonEL);
@@ -361,29 +363,29 @@ function showScore() {
  
 
     console.log("showscore function");
+    scoreList = localStorage.getItem("score");
+};
 
-    var saveScore = function() {
-         //add user data into an object
-        var userData = {
-        name: textInputValue,
-        score: userScore
+    function saveScore() {
+
+        //for whatever reason, the code will not read the value of the textbox and it returns ""
+    var textInputValue = scoreSubmitEl.value;
+        //add user data into an object
+    var userData = {
+    name: textInputValue,
+    score: userScore
     };
     //when the user clicks the submit button after adding their initials, the printScore() function should load and take in the value
     //of the input.
-        scoreButtonEL.addEventListener("click", printScore);
-            function printScore () {
-                document.getElementById("input-id").value;
-                console.log(printScore);
-            }
-        localStorage.setItem("score", JSON.stringify(userData));
-        console.log(userData);
-        //console.log(userData) prints the correct object but the value of the input field is UNDEFINED
-
-    //for whatever reason, the code will not read the value of the textbox and it returns ""
-        var textInputValue = scoreSubmitEl.value;
+    scoreButtonEL.addEventListener("click", printScore);
+        function printScore () {
+            document.getElementById("input-id").value;
+            console.log(printScore);
+        }
+    localStorage.setItem("score", JSON.stringify(userData));
+    console.log(userData);
+    //console.log(userData) prints the correct object but the value of the input field is UNDEFINED
     }
-    scoreList = localStorage.getItem("score");
-};
 
 //function to load scores into a list
 function loadScore() {
@@ -407,7 +409,7 @@ function loadScore() {
     var scoreItem = document.createElement("li");
     scoreItem.className = "score-item";
     scoreItem.setAttribute("data-score-id", userScore);
-    
+
     //append scoreItem to scoreContainer to print score
     //console.log scoreItem prints the <li> element to the page, not the score itself
     //console.log(loadUserScore) will not show the value of the input field
