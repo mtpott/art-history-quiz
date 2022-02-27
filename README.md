@@ -14,9 +14,9 @@ In this project, I used HTML, CSS, and Javascript. I primarily used Javascript i
 
 ## Links
 
-Link to my GitHub repository: 
+Link to my GitHub repository: https://github.com/mtpott/art-history-quiz
 
-Link to the deployed project website: 
+Link to the deployed project website: https://mtpott.github.io/art-history-quiz/
 
 ## Screenshot
 

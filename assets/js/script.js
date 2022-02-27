@@ -367,7 +367,7 @@ function showScore() {
 function saveScore() {
 
     var textInputValue = scoreSubmitEl.value;
-        //add user data into an object
+    //add user data into an object
     var userData = {
     name: textInputValue,
     score: userScore
@@ -403,7 +403,7 @@ function loadScore() {
     var scoreItem = document.createElement("li");
     scoreItem.className = "score-item";
     scoreItem.textContent = loadUserScore;
-    scoreItem.innerHTML = loadUserScore[i];
+    scoreItem.innerHTML = loadUserScore.name;
     scoreItem.setAttribute("data-score-id", userScore);
 
     //console.log(loadUserScore);
