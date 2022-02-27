@@ -360,15 +360,12 @@ function showScore() {
             loadScore();
         }
     };
- 
-
-    console.log("showscore function");
+    //console.log("showscore function");
     scoreList = localStorage.getItem("score");
 };
 
-    function saveScore() {
+function saveScore() {
 
-        //for whatever reason, the code will not read the value of the textbox and it returns ""
     var textInputValue = scoreSubmitEl.value;
         //add user data into an object
     var userData = {
@@ -384,19 +381,16 @@ function showScore() {
         }
     localStorage.setItem("score", JSON.stringify(userData));
     console.log(userData);
-    //console.log(userData) prints the correct object but the value of the input field is UNDEFINED
-    }
+}
 
 //function to load scores into a list
 function loadScore() {
 
-    loadUserScore = localStorage.getItem("score");
+    var loadUserScore = localStorage.getItem("score");
     loadUserScore = JSON.parse(loadUserScore);
+    var scoreList = document.createElement("ul");
 
-    var scoreList = document.createElement("ol");
-    scoreList.appendChild(scoreContainerEl);
-
-    console.log("loadscore function");
+    //console.log("loadscore function");
 
     if (!scoreList) {
         return false;
@@ -408,14 +402,14 @@ function loadScore() {
 
     var scoreItem = document.createElement("li");
     scoreItem.className = "score-item";
+    scoreItem.textContent = loadUserScore;
+    scoreItem.innerHTML = loadUserScore[i];
     scoreItem.setAttribute("data-score-id", userScore);
 
-    //append scoreItem to scoreContainer to print score
-    //console.log scoreItem prints the <li> element to the page, not the score itself
-    //console.log(loadUserScore) will not show the value of the input field
-    console.log(loadUserScore);
-    scoreContainerEl.appendChild(scoreItem);
+    //console.log(loadUserScore);
 
+    scoreContainerEl.appendChild(scoreList);
+    scoreList.appendChild(scoreItem);
 }
 
 buttonEl.addEventListener("click", questionOne);

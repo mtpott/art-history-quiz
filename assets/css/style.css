@@ -71,6 +71,13 @@ button {
     display: flex;
     text-align: center;
     flex-direction: column;
+    align-items: center;
+    width: auto;
+    height: 50%;
+}
+
+.score-item {
+    list-style-type: none;
 }
 
 footer {
