@@ -407,7 +407,7 @@ function loadScore() {
     var scoreItem = document.createElement("li");
     scoreItem.className = "score-item";
     scoreItem.setAttribute("data-score-id", userScore);
-
+    
     //append scoreItem to scoreContainer to print score
     //console.log scoreItem prints the <li> element to the page, not the score itself
     //console.log(loadUserScore) will not show the value of the input field
