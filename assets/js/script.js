@@ -380,7 +380,7 @@ function saveScore() {
             console.log(printScore);
         }
     localStorage.setItem("score", JSON.stringify(userData));
-    console.log(userData);
+    //console.dir(userData);
 }
 
 //function to load scores into a list
@@ -396,15 +396,19 @@ function loadScore() {
         return false;
     };
 
-    for (var i = 0; i < scoreList.length; i++) {
-        console.log(scoreList[i]);
-    }
-
     var scoreItem = document.createElement("li");
     scoreItem.className = "score-item";
-    scoreItem.textContent = loadUserScore;
-    scoreItem.innerHTML = loadUserScore.name;
-    scoreItem.setAttribute("data-score-id", userScore);
+    //scoreItem.textContent = loadUserScore;
+    scoreItem.innerHTML = JSON.stringify(loadUserScore);
+
+    for (var i = 0; i < loadUserScore.length; i++) {
+        scoreItem.textContent = loadScoreLength[i];
+        console.log(loadUserScore[i]);
+    }
+
+    //console.log(JSON.stringify(loadUserScore))
+    // scoreItem.innerHTML = loadUserScore[i].value;
+    // scoreItem.setAttribute("data-score-id", userScore);
 
     //console.log(loadUserScore);
 
